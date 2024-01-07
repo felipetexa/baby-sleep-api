@@ -20,7 +20,7 @@ public class SleepController : ControllerBase
   {
     var sleepRecord = new SleepRecord
     {
-      UserId = "exampleUser",
+      // UserId = "exampleUser",
       StartTime = DateTime.Now,
       EndTime = DateTime.Now,
       WakeUpCount = 0
@@ -38,7 +38,9 @@ public class SleepController : ControllerBase
   public IActionResult PauseSleeping()
   {
     var activeRecord = _context.SleepRecords
-         .Where(record => record.UserId == "exampleUser" && record.EndTime == record.StartTime)
+         .Where(record =>
+        //  record.UserId == "exampleUser" && 
+        record.EndTime == record.StartTime)
          .OrderByDescending(record => record.StartTime)
          .FirstOrDefault();
 
@@ -57,7 +59,9 @@ public class SleepController : ControllerBase
   public IActionResult StopSleeping()
   {
     var activeRecord = _context.SleepRecords
-               .Where(record => record.UserId == "exampleUser" && record.EndTime == record.StartTime)
+               .Where(record =>
+               //  record.UserId == "exampleUser" && 
+               record.EndTime == record.StartTime)
                .OrderByDescending(record => record.StartTime)
                .FirstOrDefault();
 
