@@ -19,6 +19,18 @@ public class Startup
     services.AddDbContext<SleepContext>(options =>
             options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
+    services.AddCors(options =>
+        {
+          options.AddDefaultPolicy(builder =>
+      {
+        builder
+        // .AllowAnyOrigin() 
+        .WithOrigins("http://localhost:5173")
+        .AllowAnyHeader()
+        .AllowAnyMethod();
+      });
+        });
+
     services.AddControllers();
   }
 
@@ -28,6 +40,8 @@ public class Startup
     {
       app.UseDeveloperExceptionPage();
     }
+
+    app.UseCors();
 
     app.UseRouting();
 
