@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,23 @@ public class SleepController : ControllerBase
     _context = context;
   }
 
+  // [EnableCors("MyCorsPolicy")]
+  [HttpOptions]
+  [Route("start")]
+  public IActionResult Options()
+  {
+    Response.Headers.Add("Access-Control-Allow-Origin", "*");
+    Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    return Ok(); // Return a minimal response with a 200 OK status.
+  }
   [HttpPost]
   [Route("start")]
   public IActionResult StartSleeping()
   {
+    Response.Headers.Add("Access-Control-Allow-Origin", "*");
+    Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
     var sleepRecord = new SleepRecord
     {
       // UserId = "exampleUser",
