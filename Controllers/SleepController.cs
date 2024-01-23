@@ -15,23 +15,27 @@ public class SleepController : ControllerBase
     _context = context;
   }
 
+  private void ApplyCorsHeaders()
+  {
+    Response.Headers.Add("Access-Control-Allow-Origin", "*");
+    Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  }
+
+
   // [EnableCors("MyCorsPolicy")]
   [HttpOptions]
   [Route("start")]
   public IActionResult Options()
   {
-    Response.Headers.Add("Access-Control-Allow-Origin", "*");
-    Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    ApplyCorsHeaders();
     return Ok(); // Return a minimal response with a 200 OK status.
   }
   [HttpPost]
   [Route("start")]
   public IActionResult StartSleeping()
   {
-    Response.Headers.Add("Access-Control-Allow-Origin", "*");
-    Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    ApplyCorsHeaders();
     var sleepRecord = new SleepRecord
     {
       // UserId = "exampleUser",
@@ -51,6 +55,7 @@ public class SleepController : ControllerBase
 
   public IActionResult PauseSleeping()
   {
+    ApplyCorsHeaders();
     var activeRecord = _context.SleepRecords
          .Where(record =>
         //  record.UserId == "exampleUser" && 
@@ -72,6 +77,7 @@ public class SleepController : ControllerBase
 
   public IActionResult StopSleeping()
   {
+    ApplyCorsHeaders();
     var activeRecord = _context.SleepRecords
                .Where(record =>
                //  record.UserId == "exampleUser" && 
