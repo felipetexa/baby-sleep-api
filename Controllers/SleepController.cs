@@ -50,6 +50,15 @@ public class SleepController : ControllerBase
     return Ok(new { Message = "Sleep timer started." });
   }
 
+  // [HttpGet]
+  // [Route("start")]
+  // public IActionResult StartSleepingData()
+  // {
+  //   ApplyCorsHeaders();
+
+  //   return Ok(new { Message = "Sleep timer started." });
+  // }
+
   [HttpPost]
   [Route("pause")]
 
@@ -92,6 +101,17 @@ public class SleepController : ControllerBase
       _context.SaveChanges();
     }
     return Ok(new { Message = "Sleep Timer Stopped." });
+  }
+
+  [HttpGet]
+  [Route("report")]
+  public IActionResult GetSleepReport()
+  {
+    ApplyCorsHeaders();
+
+    var sleepRecords = _context.SleepRecords.ToList();
+
+    return Ok(sleepRecords);
   }
 
 
